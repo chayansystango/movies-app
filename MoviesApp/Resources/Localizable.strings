@@ -1,0 +1,18 @@
+//
+//  Localizable.strings
+//  MoviesApp
+//
+//  Created by Chayan on 24/01/19.
+//  Copyright © 2019 Systango Technologies Pvt Ltd. All rights reserved.
+//
+
+// Movies
+"no_movie_data" = "No movies to show";
+
+// Movie Specifications
+"movie_spec_title" = "Title:";
+"movie_spec_summary" = "Summary:";
+"movie_spec_cast" = "Cast:";
+"movie_spec_director" = "Director:";
+"movie_spec_year" = "Year:";
+"movie_spec_genre" = "Genre:";
