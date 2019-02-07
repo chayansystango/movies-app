@@ -9,16 +9,6 @@
 import Foundation
 import UIKit
 
-// MARK: - API
-
-enum UserAPIEndpoints : String {
-    case getMovieList = "ios-movies/list.json"
-}
-
-struct URLConstant {
-    static let baseLiveURL = "https://s3.eu-west-2.amazonaws.com/"
-}
-
 // MARK: - UI
 
 enum Storyboard: String {

@@ -8,26 +8,22 @@
 
 import UIKit
 
-class APIManager {
+enum Result {
+    case success(APIResponse)
+    case failure(String)
+}
+
+struct URLConstant {
+    static let baseLiveURL = "https://s3.eu-west-2.amazonaws.com"
+}
+
+struct APIManager {
     
-    /// Perform GET Operations
-    static func performGetCallWith(endpoint: UserAPIEndpoints, completionHandler: @escaping (APIResponse?) -> ()) {
-        APIRequest.callAPIWith(endPoint: (URLConstant.baseLiveURL + endpoint.rawValue), methodType: .get, parameters: nil, completionHandler: completionHandler)
+    let manager = Manager<MoviesApi>()
+    
+    func getMovies(completion: @escaping APICompletion) {
+        manager.request(.getList) { result in
+            completion(result)
+        }
     }
-    
-    /// Perform POST Operations
-    static func performPostCallWith(endpoint: UserAPIEndpoints, parameters: [String: Any]?, completionHandler: @escaping (APIResponse?) -> ()) {
-        APIRequest.callAPIWith(endPoint: (URLConstant.baseLiveURL + endpoint.rawValue), methodType: .post, parameters: parameters, completionHandler: completionHandler)
-    }
-    
-    /// Perform PUT Operations
-    static func performPutCallWith(endpoint: UserAPIEndpoints, parameters: [String: Any]?, completionHandler: @escaping (APIResponse?) -> ()) {
-        APIRequest.callAPIWith(endPoint: (URLConstant.baseLiveURL + endpoint.rawValue), methodType: .put, parameters: parameters, completionHandler: completionHandler)
-    }
-    
-    /// Perform DELETE Operations
-    static func performDeleteCallWith(endpoint: UserAPIEndpoints, parameters: [String: Any]?, completionHandler: @escaping (APIResponse?) -> ()) {
-        APIRequest.callAPIWith(endPoint: (URLConstant.baseLiveURL + endpoint.rawValue), methodType: .delete, parameters: parameters, completionHandler: completionHandler)
-    }
-    
 }

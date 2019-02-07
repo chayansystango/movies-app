@@ -21,13 +21,18 @@ class MovieViewModel: NSObject {
     // MARK: - API methods
     
     func performGetMovieListAPI(completionHandler: @escaping MovieCompletionHandler) {
-        APIManager.performGetCallWith(endpoint: .getMovieList) { (apiResponse) in
-            var moviesArray = [MovieModel]()
-            if let dataArray = apiResponse?.body?["data"] as? [[String: Any]] {
-                for movieDict in dataArray {
-                    moviesArray.append(MovieModel(movieDict))
+        APIManager().getMovies { (result) in
+            switch result {
+            case .success(let apiResponse):
+                var moviesArray = [MovieModel]()
+                if let dataArray = apiResponse.body?["data"] as? [[String: Any]] {
+                    for movieDict in dataArray {
+                        moviesArray.append(MovieModel(movieDict))
+                    }
+                    completionHandler(moviesArray)
                 }
-                completionHandler(moviesArray)
+            case .failure(let errorMessage):
+                print(errorMessage)
             }
         }
     }
