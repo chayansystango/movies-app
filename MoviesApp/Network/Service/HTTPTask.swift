@@ -14,4 +14,19 @@ public enum HTTPTask {
     case requestParametersAndHeaders(bodyParameters: [String: Any]?, additionHeaders: [String: String]?)
 }
 
+protocol URLSessionProtocol {
+    func dataTask(with request: URLRequest, completionHandler: @escaping DataTaskResponse) -> URLSessionDataTaskProtocol
+}
+
+extension URLSession: URLSessionProtocol {
+    func dataTask(with request: URLRequest, completionHandler: @escaping DataTaskResponse) -> URLSessionDataTaskProtocol {
+        return dataTask(with: request, completionHandler: completionHandler) as URLSessionDataTask
+    }
+}
+
+protocol URLSessionDataTaskProtocol {
+    func resume()
+}
+
+extension URLSessionDataTask: URLSessionDataTaskProtocol {}
 

@@ -9,6 +9,7 @@
 import Foundation
 
 typealias APICompletion = (Result) -> ()
+typealias DataTaskResponse = (Data?, URLResponse?, Error?) -> Void
 
 protocol RequestManager {
     associatedtype EndPoint: EndPointType
@@ -16,10 +17,15 @@ protocol RequestManager {
 }
 
 class Manager<EndPoint: EndPointType>: RequestManager {
-    private var task: URLSessionTask?
+    
+    private var task: URLSessionDataTaskProtocol?
+    private let session: URLSessionProtocol
+    
+    init(session: URLSessionProtocol = URLSession.shared) {
+        self.session = session
+    }
     
     func request(_ route: EndPoint, completion: @escaping APICompletion) {
-        let session = URLSession.shared
         if let request = buildRequest(from: route) {
             task = session.dataTask(with: request, completionHandler: { data, response, error in
                 if error != nil {
